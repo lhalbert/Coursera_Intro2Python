@@ -10,6 +10,8 @@ score = 0
 lives = 3
 time = 0.5
 magic_num = 10
+R_AV_LIM = (-math.pi / 15, math.pi / 15)
+R_V_LIM = (-5, 5)
 
 class ImageInfo:
     def __init__(self, center, size, radius = 0, lifespan = None, animated = False):
@@ -187,6 +189,13 @@ def draw(canvas):
     canvas.draw_image(debris_image, center, size, (wtime - WIDTH / 2, HEIGHT / 2), (WIDTH, HEIGHT))
     canvas.draw_image(debris_image, center, size, (wtime + WIDTH / 2, HEIGHT / 2), (WIDTH, HEIGHT))
 
+     # draw lives and score
+    canvas.draw_text("Lives", [20, 30], 22, "White")
+    canvas.draw_text(str(lives), [20, 55], 22, "White")
+    
+    canvas.draw_text("Score", [720, 30], 22, "White")
+    canvas.draw_text(str(score), [720, 55], 22, "White")
+
     # draw ship and sprites
     my_ship.draw(canvas)
     a_rock.draw(canvas)
@@ -227,7 +236,13 @@ def keyup(key):
     
 # timer handler that spawns a rock    
 def rock_spawner():
-    pass
+    global a_rock
+    rock_vel = [random.random() * 5, random.random() * 5]
+    rock_vel_angle = random.random() * .2
+    rotate = random.random() * math.pi
+    a_rock = Sprite([WIDTH * random.random(), HEIGHT * random.random()], 
+                    [rock_vel[0], rock_vel[1]], 
+                    rotate, rock_vel_angle, asteroid_image, asteroid_info)
     
 # initialize frame
 frame = simplegui.create_frame("Asteroids", WIDTH, HEIGHT)
