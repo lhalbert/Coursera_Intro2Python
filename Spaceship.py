@@ -10,8 +10,6 @@ score = 0
 lives = 3
 time = 0.5
 magic_num = 10
-R_AV_LIM = (-math.pi / 15, math.pi / 15)
-R_V_LIM = (-5, 5)
 
 class ImageInfo:
     def __init__(self, center, size, radius = 0, lifespan = None, animated = False):
